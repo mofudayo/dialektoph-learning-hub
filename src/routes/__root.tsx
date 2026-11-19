@@ -15,7 +15,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Nav } from "@/components/Nav";
-import { getState, useAppState } from "@/lib/store";
+import { hasActiveSession, useAppState } from "@/lib/store";
 
 function NotFoundComponent() {
   return (
@@ -103,7 +103,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Google+Sans:wght@500&family=Nunito:wght@400;500;600;700&display=swap",
       },
     ],
   }),
@@ -140,7 +140,7 @@ function RootComponent() {
 
   // Demo auth: every page except the login page needs the localStorage login flag.
   useEffect(() => {
-    if (!isLogin && !getState().loggedIn) navigate({ to: "/" });
+    if (!isLogin && !hasActiveSession()) navigate({ to: "/" });
   }, [isLogin, navigate]);
 
   return (

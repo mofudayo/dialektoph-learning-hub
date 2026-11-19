@@ -3,7 +3,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { DEFAULT_STATE, setState, useAppState } from "@/lib/store";
+import { DEFAULT_STATE, setState, signOut as demoSignOut, useAppState } from "@/lib/store";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
@@ -35,7 +35,7 @@ function Profile() {
   }
 
   function signOut() {
-    setState({ loggedIn: false });
+    demoSignOut();
     navigate({ to: "/" });
   }
 

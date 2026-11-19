@@ -10,9 +10,12 @@ export type AppState = {
   scores: Record<string, number>;
   classCode: string;
   theme: "light" | "dark";
+  remember: boolean;
 };
 
 const KEY = "dialektoph";
+// Marks this browser tab session; used when "Remember me" is off.
+const SESSION_KEY = "dialektoph-session";
 
 export const DEFAULT_STATE: AppState = {
   loggedIn: false,
@@ -23,6 +26,7 @@ export const DEFAULT_STATE: AppState = {
   scores: {},
   classCode: "",
   theme: "light",
+  remember: true,
 };
 
 let cacheRaw: string | null = null;
@@ -55,4 +59,25 @@ function subscribe(l: () => void) {
 
 export function useAppState(): AppState {
   return useSyncExternalStore(subscribe, getState, () => DEFAULT_STATE);
+}
+
+/** Demo sign-in: no real account, just saves the details and the login flag. */
+export function signIn(patch: Partial<AppState>, remember: boolean) {
+  sessionStorage.setItem(SESSION_KEY, "1");
+  setState({ ...patch, remember, loggedIn: true });
+}
+
+export function signOut() {
+  sessionStorage.removeItem(SESSION_KEY);
+  setState({ loggedIn: false });
+}
+
+/** True when signed in. Without "Remember me", closing the browser signs you out. */
+export function hasActiveSession(): boolean {
+  const s = getState();
+  if (s.loggedIn && !s.remember && !sessionStorage.getItem(SESSION_KEY)) {
+    setState({ loggedIn: false });
+    return false;
+  }
+  return s.loggedIn;
 }
