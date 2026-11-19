@@ -22,9 +22,33 @@ export const Route = createFileRoute("/quiz")({
 
 function QuizPage() {
   const { lang } = Route.useSearch();
-  const language = getLanguage(lang);
+  const language = LANGUAGES.find((l) => l.id === lang);
+  // No dialect picked yet: show only the big dialect selection.
+  if (!language) return <LanguagePicker />;
   // Remount the quiz when the language changes so answers reset.
   return <Quiz key={language.id} languageId={language.id} />;
+}
+
+function LanguagePicker() {
+  return (
+    <div className="space-y-6">
+      <h1 className="text-2xl font-bold">Quiz</h1>
+      <p className="text-sm text-muted-foreground">Choose a dialect to start its quiz.</p>
+      <div className="grid gap-4 sm:grid-cols-2">
+        {LANGUAGES.map((l) => (
+          <Link
+            key={l.id}
+            to="/quiz"
+            search={{ lang: l.id }}
+            className="rounded-xl border border-border bg-card p-8 text-center hover:bg-accent"
+          >
+            <div className="text-xl font-semibold">{l.name}</div>
+            <div className="mt-1 text-sm text-muted-foreground">{l.region}</div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function Quiz({ languageId }: { languageId: string }) {
@@ -50,15 +74,9 @@ function Quiz({ languageId }: { languageId: string }) {
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Quiz</h1>
 
-      <div className="flex flex-wrap gap-2">
-        {LANGUAGES.map((l) => (
-          <Button key={l.id} asChild size="sm" variant={l.id === languageId ? "default" : "outline"}>
-            <Link to="/quiz" search={{ lang: l.id }}>
-              {l.name}
-            </Link>
-          </Button>
-        ))}
-      </div>
+      <Link to="/quiz" search={{}} className="inline-block text-sm text-primary hover:underline">
+        ← Choose another dialect
+      </Link>
 
       <p className="text-sm text-muted-foreground">
         Best score in {language.name}: {best === undefined ? "not taken yet" : `${best}/${questions.length}`}
