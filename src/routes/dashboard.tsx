@@ -21,7 +21,13 @@ function Dashboard() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-bold">Welcome, {name}!</h1>
+      <div className="flex items-center gap-3">
+        {/* Demo avatar: no real account photo exists, so show the first letter of the name. */}
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-lg font-bold text-primary-foreground">
+          {(name.trim().charAt(0) || "L").toUpperCase()}
+        </div>
+        <h1 className="text-2xl font-bold">Welcome, {name}!</h1>
+      </div>
 
       <section className="rounded-xl border border-border bg-card p-5">
         <h2 className="font-semibold">Learning progress</h2>
