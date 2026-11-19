@@ -28,3 +28,9 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- All demo state (login flag, profile, progress, class code, theme) lives in one localStorage key via `src/lib/store.ts`; no backend, so pages share one hook and stay SSR-safe.
+- Lesson and quiz content plus scoring/points rules live in `src/lib/data.ts` as plain functions so they can be unit-tested.
+- Login guard and nav live in `src/routes/__root.tsx`; `/` is the demo login page.
