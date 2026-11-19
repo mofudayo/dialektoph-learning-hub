@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calcPoints, getQuiz, LANGUAGES, scoreQuiz } from "@/lib/data";
+import { calcPoints, fakePronunciationScore, getQuiz, LANGUAGES, pronunciationFeedback, scoreQuiz } from "@/lib/data";
 
 describe("DialektoPH rules", () => {
   it("offers lessons for the five requested languages", () => {
@@ -22,5 +22,20 @@ describe("DialektoPH rules", () => {
 
   it("gives 10 points per lesson and 5 per correct quiz answer", () => {
     expect(calcPoints(["a", "b"], { tagalog: 3, waray: 1 })).toBe(40);
+  });
+
+  it("practice scores stay between 60 and 100", () => {
+    for (let i = 0; i < 200; i++) {
+      const s = fakePronunciationScore();
+      expect(s).toBeGreaterThanOrEqual(60);
+      expect(s).toBeLessThanOrEqual(100);
+    }
+  });
+
+  it("practice feedback changes at 90 and 75", () => {
+    expect(pronunciationFeedback(90)).toMatch(/Excellent/);
+    expect(pronunciationFeedback(89)).toMatch(/Good job/);
+    expect(pronunciationFeedback(75)).toMatch(/Good job/);
+    expect(pronunciationFeedback(74)).toMatch(/Nice try/);
   });
 });

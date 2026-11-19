@@ -6,6 +6,7 @@ import { setState, useAppState } from "@/lib/store";
 const LINKS = [
   { to: "/dashboard", label: "Dashboard" },
   { to: "/lessons", label: "Lessons" },
+  { to: "/practice", label: "Practice" },
   { to: "/quiz", label: "Quiz" },
   { to: "/leaderboard", label: "Leaderboard" },
   { to: "/profile", label: "Profile" },

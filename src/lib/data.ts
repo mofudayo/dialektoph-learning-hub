@@ -151,3 +151,14 @@ export const CLASSMATES = [
   { name: "Paolo Garcia", points: 55 },
   { name: "Liza Ramos", points: 30 },
 ];
+
+// Practice (demo): no real speech check, just a made-up score from 60 to 100.
+export function fakePronunciationScore(): number {
+  return 60 + Math.floor(Math.random() * 41);
+}
+
+export function pronunciationFeedback(score: number): string {
+  if (score >= 90) return "Excellent! You sound like a native speaker.";
+  if (score >= 75) return "Good job! Just a little more practice.";
+  return "Nice try! Listen again and repeat slowly.";
+}

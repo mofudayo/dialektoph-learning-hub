@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as LessonsRouteImport } from './routes/lessons'
+import { Route as PracticeRouteImport } from './routes/practice'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as QuizRouteImport } from './routes/quiz'
 
@@ -36,6 +37,11 @@ const LessonsRoute = LessonsRouteImport.update({
   path: '/lessons',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PracticeRoute = PracticeRouteImport.update({
+  id: '/practice',
+  path: '/practice',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/leaderboard': typeof LeaderboardRoute
   '/lessons': typeof LessonsRoute
+  '/practice': typeof PracticeRoute
   '/profile': typeof ProfileRoute
   '/quiz': typeof QuizRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/leaderboard': typeof LeaderboardRoute
   '/lessons': typeof LessonsRoute
+  '/practice': typeof PracticeRoute
   '/profile': typeof ProfileRoute
   '/quiz': typeof QuizRoute
 }
@@ -69,21 +77,36 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/leaderboard': typeof LeaderboardRoute
   '/lessons': typeof LessonsRoute
+  '/practice': typeof PracticeRoute
   '/profile': typeof ProfileRoute
   '/quiz': typeof QuizRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/dashboard' | '/leaderboard' | '/lessons' | '/profile' | '/quiz'
+    | '/'
+    | '/dashboard'
+    | '/leaderboard'
+    | '/lessons'
+    | '/practice'
+    | '/profile'
+    | '/quiz'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/leaderboard' | '/lessons' | '/profile' | '/quiz'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/leaderboard'
+    | '/lessons'
+    | '/practice'
+    | '/profile'
+    | '/quiz'
   id:
     | '__root__'
     | '/'
     | '/dashboard'
     | '/leaderboard'
     | '/lessons'
+    | '/practice'
     | '/profile'
     | '/quiz'
   fileRoutesById: FileRoutesById
@@ -93,6 +116,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   LeaderboardRoute: typeof LeaderboardRoute
   LessonsRoute: typeof LessonsRoute
+  PracticeRoute: typeof PracticeRoute
   ProfileRoute: typeof ProfileRoute
   QuizRoute: typeof QuizRoute
 }
@@ -127,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LessonsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/practice': {
+      id: '/practice'
+      path: '/practice'
+      fullPath: '/practice'
+      preLoaderRoute: typeof PracticeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -149,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   LeaderboardRoute: LeaderboardRoute,
   LessonsRoute: LessonsRoute,
+  PracticeRoute: PracticeRoute,
   ProfileRoute: ProfileRoute,
   QuizRoute: QuizRoute,
 }

@@ -32,5 +32,5 @@ use the editor.
 ## Project rules
 
 - All demo state (login flag, profile, progress, class code, theme) lives in one localStorage key via `src/lib/store.ts`; no backend, so pages share one hook and stay SSR-safe.
-- Lesson and quiz content plus scoring/points rules live in `src/lib/data.ts` as plain functions so they can be unit-tested.
+- Lesson, quiz and practice content plus scoring/points/feedback rules live in `src/lib/data.ts` as plain functions so they can be unit-tested.
 - Login guard and nav live in `src/routes/__root.tsx`; `/` is the demo login page. Form checks live in `src/lib/auth.ts` (pure, tested); sign-in/out and the "Remember me" session check go through `signIn`/`signOut`/`hasActiveSession` in `src/lib/store.ts` so every page agrees on who is signed in.
